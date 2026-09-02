@@ -3628,9 +3628,43 @@
         document.getElementById('ld-disbursed').textContent = loan.disbursement_date || loan.reg_date || 'N/A';
         document.getElementById('ld-outstanding').textContent = `LKR ${(outstanding).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
         document.getElementById('ld-agreed').textContent = `LKR ${(payback).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        // Arrears & Ages calculation based on missed weekly installments up to current date
+        const today = new Date();
+        today.setHours(23, 59, 59, 999);
 
-        // Arrears & Ages calculation
-        const arrears = paid < payback ? Math.max(0, payback - paid) : 0;
+        let regDate = new Date(loan.disbursement_date || loan.reg_date || today);
+        if (isNaN(regDate.getTime())) regDate = new Date();
+
+        let numDueInstallments = 0;
+        let scheduleDate = new Date(regDate);
+        for (let i = 1; i <= tenor; i++) {
+          scheduleDate.setDate(scheduleDate.getDate() + 7);
+          if (scheduleDate <= today) {
+            numDueInstallments = i;
+          } else {
+            break;
+          }
+        }
+
+        let expectedDue = numDueInstallments * installment;
+        if (numDueInstallments >= tenor) {
+          expectedDue = payback;
+        }
+
+        let arrears = 0;
+        if (['Settled', 'Completed'].includes(loan.status)) {
+          arrears = 0;
+        } else if (['Disbursed', 'Active'].includes(loan.status)) {
+          arrears = Math.max(0, expectedDue - paid);
+        } else {
+          arrears = 0;
+        }
+
+        const instAge = installment > 0 ? (arrears / installment).toFixed(2) : '0.00';
+        const monthAge = installment > 0 ? (arrears / (installment * 4.33)).toFixed(2) : '0.00';
+
+        document.getElementById('ld-inst-age').textContent = instAge;
+        document.getElementById('ld-month-age').textContent = monthAge;
         document.getElementById('ld-arrears').textContent = `LKR ${(arrears).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
         document.getElementById('ld-paid').textContent = `LKR ${(paid).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
         document.getElementById('ld-officer').textContent = (loan.credit_officer || 'leshan').toUpperCase();
@@ -4602,10 +4636,10 @@
             <td style="border: 1px solid #000; padding: 4px; text-align: left;">${loan.client_name}</td>
             <td style="border: 1px solid #000; padding: 4px; text-align: center;">${loan.mobile}</td>
             <td style="border: 1px solid #000; padding: 4px; text-align: center;">${loan.loan_no}</td>
-            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.loan_amount.toFixed(1)}</td>
-            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.arrears.toFixed(1)}</td>
-            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.weekly_inst.toFixed(2)}</td>
-            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.total_bal === 0 ? '.00' : loan.total_bal.toFixed(2)}</td>
+            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.loan_amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.arrears.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.weekly_inst.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td style="border: 1px solid #000; padding: 4px; text-align: right;">${loan.total_bal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
             ${emptyCellsHtml}
           </tr>
         `;
@@ -4998,12 +5032,35 @@
       document.getElementById('co-info-gender').textContent = client.gender || '';
       document.getElementById('co-info-cbo').textContent = client.cbo || '';
 
+      // Format full address from house_no, street_address, address, etc.
+      let fullAddress = '';
+      if (client.full_address && client.full_address.trim()) {
+        fullAddress = client.full_address.trim();
+      } else if (client.address && client.address.trim()) {
+        fullAddress = client.address.trim();
+      } else {
+        const parts = [];
+        if (client.house_no && client.house_no.trim()) {
+          parts.push(client.house_no.trim());
+        }
+        if (client.street_address && client.street_address.trim()) {
+          const street = client.street_address.trim();
+          if (parts.length > 0 && street.toLowerCase().startsWith(parts[0].toLowerCase())) {
+            parts[0] = street;
+          } else {
+            parts.push(street);
+          }
+        }
+        fullAddress = parts.join(', ');
+      }
+
       document.getElementById('co-info-initialnames').textContent = client.names_denoted_by_initials || '';
       document.getElementById('co-info-nic').textContent = client.nic || '';
-      document.getElementById('co-info-address').textContent = client.street_address || '';
+      document.getElementById('co-info-address').textContent = fullAddress || client.street_address || client.house_no || '';
       document.getElementById('co-info-fixedline').textContent = client.land_phone || '';
       document.getElementById('co-info-birthday').textContent = client.dob || '';
-      document.getElementById('co-info-cbogroup').textContent = client.cbo ? `${client.cbo} / G-2` : '';
+      const groupCodeStr = client.group_code ? (client.group_code.includes(' - ') ? client.group_code.split(' - ').pop() : client.group_code) : 'G-2';
+      document.getElementById('co-info-cbogroup').textContent = client.cbo ? `${client.cbo} / ${groupCodeStr}` : (client.group_code || '');
 
       // Set Profile Photo
       const photoWrapper = document.getElementById('co-photo-wrapper');
