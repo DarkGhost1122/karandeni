@@ -1,6 +1,6 @@
 #!/bin/bash
 # ────────────────────────────────────────────
-# MACS MF – Start Script
+# Karandeni Investment – Startup Script
 # Starts MongoDB and the Flask API server
 # Usage: ./start.sh
 # ────────────────────────────────────────────
@@ -18,7 +18,7 @@ else
 fi
 
 echo "════════════════════════════════════════"
-echo "  MACS MF – Startup"
+echo "  Karandeni Investment – Startup"
 echo "════════════════════════════════════════"
 
 # ── 1. Start MongoDB ───────────────────────

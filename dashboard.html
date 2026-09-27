@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central Credit – Dashboard</title>
+  <title>Karandeni Investment – Dashboard</title>
   <link rel="stylesheet" href="dashboard.css" />
   <script src="config.js"></script>
 </head>
@@ -21,8 +21,8 @@
       <!-- Brand topbar inside sidebar -->
       <div class="topbar" style="padding: 10px 15px;">
         <div class="brand" style="display: flex; align-items: center; gap: 8px;">
-          <img src="logo.png" alt="Central Credit Logo" style="height: 35px; border-radius: 4px;" />
-          <span class="brand-macs" style="font-size: 15px; letter-spacing: 0.5px;">Central Credit</span>
+          <img src="logo.png" alt="Karandeni Investment Logo" style="height: 35px; border-radius: 4px;" />
+          <span class="brand-macs" style="font-size: 15px; letter-spacing: 0.5px;">Karandeni Investment</span>
         </div>
       </div>
 
@@ -292,7 +292,7 @@
               <div class="criteria-field">
                 <label>Branch</label>
                 <select id="sel-branch">
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                 </select>
               </div>
               <div class="criteria-field">
@@ -350,7 +350,7 @@
                 <label>Branch</label>
                 <select id="gp-branch">
                   <option value="">-- All --</option>
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                 </select>
               </div>
               <div class="criteria-field">
@@ -426,7 +426,7 @@
                 <label>Branch</label>
                 <select id="lo-branch">
                   <option value="">-- All --</option>
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                 </select>
               </div>
               <div class="criteria-field">
@@ -716,7 +716,7 @@
               <div class="criteria-field">
                 <label>Branch</label>
                 <select id="pa-branch">
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                 </select>
               </div>
               <div class="criteria-field">
@@ -768,7 +768,7 @@
                 <label>Branch</label>
                 <select id="al-branch">
                   <option value="">-- All --</option>
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                 </select>
               </div>
               <div class="criteria-field">
@@ -912,7 +912,7 @@
                   <div class="form-row-aligned">
                     <label>Branch <span class="req-star">*</span></label>
                     <select id="nc-branch" required>
-                      <option value="ANAMADUWA">ANAMADUWA</option>
+                      <option value="KARANDENIYA">KARANDENIYA</option>
                       <option value="COLOMBO">COLOMBO</option>
                       <option value="KANDY">KANDY</option>
                       <option value="GALLE">GALLE</option>
@@ -1344,7 +1344,7 @@
               <div class="criteria-field">
                 <label>Branch</label>
                 <select id="sl-branch">
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                   <option value="COLOMBO">COLOMBO</option>
                   <option value="KANDY">KANDY</option>
                   <option value="GALLE">GALLE</option>
@@ -1506,7 +1506,7 @@
               <div class="criteria-field">
                 <label>Branch</label>
                 <select id="ca-branch">
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                 </select>
               </div>
               <div class="criteria-field">
@@ -2025,7 +2025,7 @@
                     <label>Branch <span class="req-star">*</span></label>
                     <select id="ns-branch" required>
                       <option value="">--- Product ---</option>
-                      <option value="ANAMADUWA">ANAMADUWA</option>
+                      <option value="KARANDENIYA">KARANDENIYA</option>
                       <option value="COLOMBO">COLOMBO</option>
                       <option value="KANDY">KANDY</option>
                       <option value="GALLE">GALLE</option>
@@ -2084,7 +2084,7 @@
                 <label style="display:block; margin-bottom:6px; font-size:12px; font-weight:600;">Branch</label>
                 <select id="sa-filter-branch" style="width:100%;">
                   <option value="--all--">-- All Branches --</option>
-                  <option value="ANAMADUWA">ANAMADUWA</option>
+                  <option value="KARANDENIYA">KARANDENIYA</option>
                   <option value="COLOMBO">COLOMBO</option>
                   <option value="KANDY">KANDY</option>
                   <option value="GALLE">GALLE</option>
@@ -3605,7 +3605,7 @@
 
         // Populate basic details
         document.getElementById('ld-loan-no-title').textContent = loan.loan_no;
-        document.getElementById('ld-branch').textContent = `${loan.branch || 'ANAMADUWA'} | ${loan.branch === 'ANAMADUWA' ? 'AM' : 'CO'}`;
+        document.getElementById('ld-branch').textContent = `${loan.branch || 'KARANDENIYA'} | ${loan.branch === 'KARANDENIYA' ? 'KD' : 'CO'}`;
         document.getElementById('ld-cbo').textContent = loan.cbo || 'N/A';
         document.getElementById('ld-group').textContent = 'Loading...';
 
@@ -4771,7 +4771,7 @@
     /* ══════════════════════════════════════
        DYNAMIC DROPDOWN LOADERS
     ══════════════════════════════════════ */
-    function loadDropdownData(branch = 'ANAMADUWA') {
+    function loadDropdownData(branch = 'KARANDENIYA') {
       // Load CBOs
       apiFetch(`/api/cbos?branch=${branch}`).then(data => {
         const cbos = data.cbos || [];
@@ -4836,7 +4836,7 @@
             el.innerHTML += `<option value="${b.name}">${b.name}</option>`;
           });
         });
-        loadDropdownData('ANAMADUWA');
+        loadDropdownData(branches.length ? branches[0].name : 'KARANDENIYA');
 
         // Initialize all autocompletes globally
         initAutocompleteForFields('nm-search-nic', 'nm-search-name');
@@ -6851,8 +6851,8 @@
       if (branchEl.value) {
         loadDropdownData(branchEl.value);
       } else {
-        branchEl.value = 'ANAMADUWA';
-        loadDropdownData('ANAMADUWA');
+        branchEl.value = 'KARANDENIYA';
+        loadDropdownData('KARANDENIYA');
       }
     }
 
