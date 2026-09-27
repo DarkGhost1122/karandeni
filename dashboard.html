@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karandeni Investment – Dashboard</title>
+  <link rel="icon" type="image/png" href="logo-icon.png" />
   <link rel="stylesheet" href="dashboard.css" />
   <script src="config.js"></script>
 </head>
@@ -20,9 +21,9 @@
 
       <!-- Brand topbar inside sidebar -->
       <div class="topbar" style="padding: 10px 15px;">
-        <div class="brand" style="display: flex; align-items: center; gap: 8px;">
-          <img src="logo.png" alt="Karandeni Investment Logo" style="height: 35px; border-radius: 4px;" />
-          <span class="brand-macs" style="font-size: 15px; letter-spacing: 0.5px;">Karandeni Investment</span>
+        <div class="brand" style="display: flex; align-items: center; gap: 10px;">
+          <img src="logo-icon.png" alt="Karandeni Investment Logo" style="height: 32px; width: 32px; border-radius: 6px; object-fit: cover; background: #fff; padding: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" />
+          <span class="brand-macs" style="font-size: 14px; letter-spacing: 0.5px; font-weight: 600;">Karandeni Investment</span>
         </div>
       </div>
 
@@ -258,24 +259,18 @@
       <main class="main-content" id="main-content">
 
         <!-- ═══════════════════════════════════
-           PAGE: HOME (flame logo)
+           PAGE: HOME (Karandeni Investment)
       ═══════════════════════════════════ -->
-        <div id="page-home" class="page-section">
-          <div class="home-logo">
-            <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
-              <path d="M60 4 C60 4 105 40 105 80 C105 120 88 148 60 158 C32 148 15 120 15 80 C15 40 60 4 60 4Z"
-                fill="#5C2E0A" opacity="0.9" />
-              <path d="M60 14 C60 14 102 48 100 84 C98 110 84 138 60 150 L56 98 C70 90 84 72 80 55 C76 42 60 14 60 14Z"
-                fill="#7B3A10" />
-              <path d="M60 34 C48 50 30 65 32 90 C34 112 46 134 60 150 C52 128 42 108 44 86 C46 66 58 52 66 36Z"
-                fill="#D96918" />
-              <path d="M60 52 C52 66 38 82 40 100 C42 116 52 134 60 150 C68 134 78 116 80 100 C82 82 68 66 60 52Z"
-                fill="#E89020" />
-              <path d="M60 72 C54 84 46 96 48 108 C50 118 56 134 60 150 C64 134 70 118 72 108 C74 96 66 84 60 72Z"
-                fill="#F0B030" />
-              <path d="M60 95 C57 102 54 112 55 122 C56 132 58 142 60 150 C62 142 64 132 65 122 C66 112 63 102 60 95Z"
-                fill="#F8D060" />
-            </svg>
+        <div id="page-home" class="page-section" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 75vh; text-align: center; padding: 20px;">
+          <div class="home-hero-card" style="background: white; padding: 40px 32px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); max-width: 480px; width: 100%; border: 1px solid #e2e8f0;">
+            <img src="logo.png" alt="Karandeni Investment" style="max-width: 280px; width: 100%; height: auto; margin-bottom: 16px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));" />
+            <h2 style="font-size: 18px; font-weight: 700; color: #1e293b; letter-spacing: 0.5px; margin-bottom: 6px;">Karandeni Investment Portal</h2>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 24px; line-height: 1.5;">Microfinance &amp; Capital Investment Management System</p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+              <button onclick="showPage('page-client-reg', document.getElementById('nav-customer'))" style="background: #2B3A5C; color: white; border: none; padding: 9px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 6px rgba(43,58,92,0.3);">+ Register Client</button>
+              <button onclick="showPage('page-issue-loan', document.getElementById('nav-new-contract'))" style="background: #0f766e; color: white; border: none; padding: 9px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 6px rgba(15,118,110,0.3);">+ Create Loan</button>
+              <button onclick="showPage('page-daily-collection', document.getElementById('nav-cashier'))" style="background: #b45309; color: white; border: none; padding: 9px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 6px rgba(180,83,9,0.3);">Daily Collection</button>
+            </div>
           </div>
         </div>
 
